@@ -1,7 +1,15 @@
+using BulkyBookWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// initilizing connection from appsettings.json, it is required to install sqlserver from nuGet store.
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+       builder.Configuration.GetConnectionString("DefaultConnection") 
+    ));
 
 var app = builder.Build();
 
